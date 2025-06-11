@@ -1,0 +1,1 @@
+// Required by manifest v3 for command support

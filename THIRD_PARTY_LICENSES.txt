@@ -1,0 +1,4 @@
+This project uses the math.js library (https://mathjs.org/)
+Copyright (c) 2013-2025 Jos de Jong
+Licensed under the Apache License, Version 2.0
+See LICENSE-mathjs for details.

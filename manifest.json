@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "NimbusCalc",
+  "description": "A clean, modern reboot of Cloudy Calculator. Supports variables, history, dark mode, and more.",
+  "version": "1.0",
+  "action": {
+    "default_popup": "html/popup.html",
+    "default_icon": "images/icon.png"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "permissions": ["storage"],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+C"
+      },
+      "description": "Open NimbusCalc"
+    }
+  }
+}
