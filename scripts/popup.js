@@ -15,7 +15,9 @@ function renderInput() {
   input = document.createElement(isMultiLine ? "textarea" : "input");
   input.id = "input";
   input.className = "calc-input";
+  input.autofocus = true;
   container.appendChild(input);
+  input.focus();
 
   input.addEventListener("keydown", e => {
     if (e.key === "Enter" && !isMultiLine) {
