@@ -3,7 +3,10 @@ let input = null;
 const historyDiv = document.getElementById("history");
 const clearAll = document.getElementById("clear-all");
 const toggle = document.getElementById("multi-line-toggle");
+const increaseFontSize = document.getElementById("increase-font-size");
+const decreaseFontSize = document.getElementById("decrease-font-size");
 let history = [];
+let settings = {fontSize: 1};
 let pointer = -1;
 const scope = {};
 
@@ -43,6 +46,7 @@ function renderInput() {
 
 function renderHistory() {
   historyDiv.innerHTML = "";
+  historyDiv.style.fontSize = settings.fontSize + "em";
   history.forEach(entry => {
     const q = document.createElement("div");
     q.className = "history-item";
@@ -56,6 +60,16 @@ function renderHistory() {
     historyDiv.appendChild(r);
   });
   historyDiv.scrollTop = historyDiv.scrollHeight;
+}
+
+function saveSettings() {
+  chrome.storage.local.set({ settings });
+}
+
+function loadSettings() {
+  chrome.storage.local.get("settings", data => {
+    settings = data.settings || {};
+  });
 }
 
 function saveHistory() {
@@ -118,8 +132,31 @@ clearAll.onclick = () => {
   renderHistory();
 };
 
+decreaseFontSize.onclick = () => {
+  if (!settings.fontSize) {
+    settings.fontSize = 1;
+  }
+  settings.fontSize -= .1;
+  // Lower than .5 has no effect, so don't let it go lower (otherwise it's harder to get back to something legible)
+  if (settings.fontSize < .5) {
+    settings.fontSize = .5;
+  }
+  saveSettings();
+  renderHistory();
+}
+
+increaseFontSize.onclick = () => {
+  if (!settings.fontSize) {
+    settings.fontSize = 1;
+  }
+  settings.fontSize += .1;
+  saveSettings();
+  renderHistory();
+}
+
 toggle.addEventListener("change", renderInput);
 document.addEventListener("DOMContentLoaded", () => {
+  loadSettings();
   renderInput();
   loadHistory();
 });
