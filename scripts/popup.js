@@ -47,12 +47,12 @@ function renderHistory() {
     const q = document.createElement("div");
     q.className = "history-item";
     q.textContent = entry.query;
-    q.onclick = () => input.value = entry.query;
+    q.onclick = () => {input.value += entry.query; input.focus()};
     historyDiv.appendChild(q);
     const r = document.createElement("div");
     r.className = "history-item";
     r.textContent = entry.result;
-    r.onclick = () => input.value = entry.result;
+    r.onclick = () => {input.value += entry.result; input.focus()};
     historyDiv.appendChild(r);
   });
   historyDiv.scrollTop = historyDiv.scrollHeight;
